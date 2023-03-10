@@ -102,7 +102,7 @@ variable "custom_var_group_name" {
 
 variable "custom_service_endpoint_name" {
   type        = string
-  description = "ADO Project name that will be used instead of ({var.subscription_name}){var.subscription_id} format"
+  description = "Service endpoint name that will be used instead of ({var.subscription_name}){var.subscription_id} format"
   default     = null
 }
 
