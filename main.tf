@@ -41,6 +41,7 @@ resource "azuredevops_variable_group" "this" {
     for_each = var.variables_set
     content {
       name         = variable.value["name"]
+      value        = variable.value["value"]
       secret_value = variable.value["secret_value"]
       is_secret    = coalesce(variable.value["is_secret"], true)
     }
