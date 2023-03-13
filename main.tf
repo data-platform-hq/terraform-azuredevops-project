@@ -32,6 +32,7 @@ resource "azuredevops_serviceendpoint_azurerm" "this" {
 }
 
 resource "azuredevops_variable_group" "this" {
+  count        = var.variables_set == [] ? 0 : 1
   project_id   = var.existing_project_name == null ? azuredevops_project.this[0].id : data.azuredevops_project.existing[0].id
   name         = var.custom_var_group_name != null ? var.custom_var_group_name : "var-group-${var.project}-${var.env}-${var.location}${local.suffix}"
   description  = var.description
