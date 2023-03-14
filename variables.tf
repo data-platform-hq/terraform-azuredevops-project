@@ -19,12 +19,6 @@ variable "suffix" {
   default     = ""
 }
 
-variable "tags" {
-  type        = map(any)
-  description = "Resource tags"
-  default     = {}
-}
-
 variable "visibility" {
   type        = string
   description = "Specifies the visibility of the Project."
