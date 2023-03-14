@@ -4,11 +4,13 @@ locals {
 
 data "azuredevops_project" "existing" {
   count = var.existing_project_name != null ? 1 : 0
+
   name  = var.existing_project_name
 }
 
 resource "azuredevops_project" "this" {
   count              = var.existing_project_name == null ? 1 : 0
+
   name               = var.custom_ado_project_name != null ? var.custom_ado_project_name : "${var.project}-${var.env}-${var.location}${local.suffix}"
   visibility         = var.visibility
   version_control    = var.version_control
@@ -19,6 +21,7 @@ resource "azuredevops_project" "this" {
 
 resource "azuredevops_serviceendpoint_azurerm" "this" {
   count                 = var.service_endpoint_args == null ? 0 : 1
+
   project_id            = var.existing_project_name == null ? azuredevops_project.this[0].id : data.azuredevops_project.existing[0].id
   service_endpoint_name = var.custom_service_endpoint_name != null ? var.custom_service_endpoint_name : "(${var.service_endpoint_args.subscription_name})${var.service_endpoint_args.subscription_id}"
   description           = var.description
@@ -33,6 +36,7 @@ resource "azuredevops_serviceendpoint_azurerm" "this" {
 
 resource "azuredevops_variable_group" "this" {
   count        = var.variables_set == [] ? 0 : 1
+
   project_id   = var.existing_project_name == null ? azuredevops_project.this[0].id : data.azuredevops_project.existing[0].id
   name         = var.custom_var_group_name != null ? var.custom_var_group_name : "var-group-${var.project}-${var.env}-${var.location}${local.suffix}"
   description  = var.description
