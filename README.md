@@ -3,12 +3,11 @@ Terraform module for creation Azure DevOps project service endpoint and variable
 
 ## Usage
 This module is creating ADO project, service endpoint and variable group or creates service endpoint and variable group in existing project. Below is an example that provisions project variable group and service connection.
-```
+```hcl
 data "azurerm_client_config" "current" {}
 
 module "ado_project" {
   source  = "data-platform-hq/project/azuredevops"
-  version = "1.0.0"
 
   project  = "my_project"
   env      = "dev"
