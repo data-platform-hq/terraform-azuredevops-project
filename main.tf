@@ -1,5 +1,8 @@
 locals {
-  suffix = length(var.suffix) == 0 ? "" : "-${var.suffix}"
+  suffix                          = length(var.suffix) == 0 ? "" : "-${var.suffix}"
+  azuredevops_project_name        = var.custom_ado_project_name != null ? var.custom_ado_project_name : "${var.project}-${var.env}-${var.location}${local.suffix}"
+  service_endpoint_name           = var.custom_service_endpoint_name != null ? var.custom_service_endpoint_name : "(${var.service_endpoint_args.subscription_name})${var.service_endpoint_args.subscription_id}"
+  azuredevops_variable_group_name = var.custom_var_group_name != null ? var.custom_var_group_name : "var-group-${var.project}-${var.env}-${var.location}${local.suffix}"
 }
 
 data "azuredevops_project" "existing" {
@@ -11,7 +14,7 @@ data "azuredevops_project" "existing" {
 resource "azuredevops_project" "this" {
   count = var.existing_project_name == null ? 1 : 0
 
-  name               = var.custom_ado_project_name != null ? var.custom_ado_project_name : "${var.project}-${var.env}-${var.location}${local.suffix}"
+  name               = local.azuredevops_project_name
   visibility         = var.visibility
   version_control    = var.version_control
   work_item_template = var.work_item_template
@@ -23,7 +26,7 @@ resource "azuredevops_serviceendpoint_azurerm" "this" {
   count = var.service_endpoint_args == null ? 0 : 1
 
   project_id            = var.existing_project_name == null ? azuredevops_project.this[0].id : data.azuredevops_project.existing[0].id
-  service_endpoint_name = var.custom_service_endpoint_name != null ? var.custom_service_endpoint_name : "(${var.service_endpoint_args.subscription_name})${var.service_endpoint_args.subscription_id}"
+  service_endpoint_name = local.service_endpoint_name
   description           = var.description
   credentials {
     serviceprincipalid  = var.service_endpoint_args.service_principal_id
@@ -38,7 +41,7 @@ resource "azuredevops_variable_group" "this" {
   count = var.variables_set == [] ? 0 : 1
 
   project_id   = var.existing_project_name == null ? azuredevops_project.this[0].id : data.azuredevops_project.existing[0].id
-  name         = var.custom_var_group_name != null ? var.custom_var_group_name : "var-group-${var.project}-${var.env}-${var.location}${local.suffix}"
+  name         = local.azuredevops_variable_group_name
   description  = var.description
   allow_access = true
 
