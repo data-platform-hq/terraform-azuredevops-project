@@ -57,6 +57,12 @@ variable "existing_project_name" {
   default     = null
 }
 
+variable "create_service_endpoints" {
+  type        = bool
+  description = "Boolean flag to turn off service endpoints creation."
+  default     = true
+}
+
 variable "features" {
   type = object({
     boards       = optional(string)
@@ -70,16 +76,16 @@ variable "features" {
 }
 
 variable "service_endpoint_args" {
-  type = object({
-    service_principal_id  = string
-    service_principal_key = string
-    spn_tenant_id         = string
-    subscription_id       = string
-    subscription_name     = string
-  })
+  type = list(object({
+    service_principal_id         = string
+    service_principal_key        = string
+    spn_tenant_id                = string
+    subscription_id              = string
+    subscription_name            = string
+    custom_service_endpoint_name = optional(string)
+  }))
   description = "Mandatory arguments for service endpoint creation. If none of them is set, service endpoint will not be created."
   default     = null
-  sensitive   = true
 }
 
 variable "custom_ado_project_name" {
@@ -91,12 +97,6 @@ variable "custom_ado_project_name" {
 variable "custom_var_group_name" {
   type        = string
   description = "Variable group name that will be used instead of var-group-{var.project}-{var.env}-{var.location}{local.suffix} format."
-  default     = null
-}
-
-variable "custom_service_endpoint_name" {
-  type        = string
-  description = "Service endpoint name that will be used instead of ({var.subscription_name}){var.subscription_id} format"
   default     = null
 }
 
