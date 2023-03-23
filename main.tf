@@ -1,7 +1,6 @@
 locals {
   suffix                          = length(var.suffix) == 0 ? "" : "-${var.suffix}"
   azuredevops_project_name        = var.custom_ado_project_name != null ? var.custom_ado_project_name : "${var.project}-${var.env}-${var.location}${local.suffix}"
-  service_endpoint_name           = var.custom_service_endpoint_name != null ? var.custom_service_endpoint_name : "(${var.service_endpoint_args.subscription_name})${var.service_endpoint_args.subscription_id}"
   azuredevops_variable_group_name = var.custom_var_group_name != null ? var.custom_var_group_name : "var-group-${var.project}-${var.env}-${var.location}${local.suffix}"
 }
 
@@ -23,18 +22,18 @@ resource "azuredevops_project" "this" {
 }
 
 resource "azuredevops_serviceendpoint_azurerm" "this" {
-  count = var.service_endpoint_args == null ? 0 : 1
+  for_each = var.create_service_endpoints ? { for k in var.service_endpoint_args : index(var.service_endpoint_args, k) => k } : {}
 
   project_id            = var.existing_project_name == null ? azuredevops_project.this[0].id : data.azuredevops_project.existing[0].id
-  service_endpoint_name = local.service_endpoint_name
+  service_endpoint_name = each.value["custom_service_endpoint_name"] != null ? each.value["custom_service_endpoint_name"] : "${each.value["subscription_name"]}(${each.value["service_principal_id"]})"
   description           = var.description
   credentials {
-    serviceprincipalid  = var.service_endpoint_args.service_principal_id
-    serviceprincipalkey = var.service_endpoint_args.service_principal_key
+    serviceprincipalid  = each.value["service_principal_id"]
+    serviceprincipalkey = each.value["service_principal_key"]
   }
-  azurerm_spn_tenantid      = var.service_endpoint_args.spn_tenant_id
-  azurerm_subscription_id   = var.service_endpoint_args.subscription_id
-  azurerm_subscription_name = var.service_endpoint_args.subscription_name
+  azurerm_spn_tenantid      = each.value["spn_tenant_id"]
+  azurerm_subscription_id   = each.value["subscription_id"]
+  azurerm_subscription_name = each.value["subscription_name"]
 }
 
 resource "azuredevops_variable_group" "this" {
