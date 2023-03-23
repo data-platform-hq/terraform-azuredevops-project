@@ -1,3 +1,11 @@
+# [1.1.0](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.0.0...v1.1.0) (2023-03-23)
+
+
+### Features
+
+* added creation of multiple service connections, added boolean flag to disable service endpoint creation, moved custom service endpoint name to service endpoint args ([707b156](https://github.com/data-platform-hq/terraform-azuredevops-project/commit/707b156a058d9c857e411de08a63fd4700ebb69e))
+* changed default service connection name to format {subscription_name}({service_principal_id}) ([9009184](https://github.com/data-platform-hq/terraform-azuredevops-project/commit/90091840b8004e5bae3ac0ae6d9a7a1441d8b00f))
+
 # 1.0.0 (2023-03-14)
 
 
