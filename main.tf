@@ -25,7 +25,7 @@ resource "azuredevops_serviceendpoint_azurerm" "this" {
   for_each = var.create_service_endpoints ? { for k in var.service_endpoint_args : index(var.service_endpoint_args, k) => k } : {}
 
   project_id            = var.existing_project_name == null ? azuredevops_project.this[0].id : data.azuredevops_project.existing[0].id
-  service_endpoint_name = each.value["custom_service_endpoint_name"] != null ? each.value["custom_service_endpoint_name"] : "(${each.value["subscription_name"]})${each.value["subscription_id"]}"
+  service_endpoint_name = each.value["custom_service_endpoint_name"] != null ? each.value["custom_service_endpoint_name"] : "${each.value["subscription_name"]}(${each.value["service_principal_id"]})"
   description           = var.description
   credentials {
     serviceprincipalid  = each.value["service_principal_id"]
