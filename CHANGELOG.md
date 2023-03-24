@@ -1,3 +1,16 @@
+# [1.2.0](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.1.0...v1.2.0) (2023-03-24)
+
+
+### Bug Fixes
+
+* fixed variable validation ([ed4806e](https://github.com/data-platform-hq/terraform-azuredevops-project/commit/ed4806ebdd59084d6781d38b2d8f242dc2ac83c1))
+
+
+### Features
+
+* added service endpoint environment argument ([f7c9d09](https://github.com/data-platform-hq/terraform-azuredevops-project/commit/f7c9d09fc2a40353e922cb3098021d3e7361ac30))
+* updated provider version, added environment argument for service connection ([62e6153](https://github.com/data-platform-hq/terraform-azuredevops-project/commit/62e615312cc2d0cefc4321d87705796779a0f001))
+
 # [1.1.0](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.0.0...v1.1.0) (2023-03-23)
 
 
