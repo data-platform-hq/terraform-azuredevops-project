@@ -44,7 +44,7 @@ variable "service_endpoint_environment" {
   description = "The Cloud Environment to use."
   default     = "AzureCloud"
   validation {
-    condition     = contains(["AzureCloud", "AzureChinaCloud"], var.version_control)
+    condition     = contains(["AzureCloud", "AzureChinaCloud"], var.service_endpoint_environment)
     error_message = "Valid values: AzureCloud or AzureChinaCloud."
   }
 }
