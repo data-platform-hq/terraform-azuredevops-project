@@ -34,6 +34,8 @@ resource "azuredevops_serviceendpoint_azurerm" "this" {
   azurerm_spn_tenantid      = each.value["spn_tenant_id"]
   azurerm_subscription_id   = each.value["subscription_id"]
   azurerm_subscription_name = each.value["subscription_name"]
+
+  environment = var.service_endpoint_environment
 }
 
 resource "azuredevops_variable_group" "this" {

@@ -39,6 +39,16 @@ variable "version_control" {
   }
 }
 
+variable "service_endpoint_environment" {
+  type        = string
+  description = "The Cloud Environment to use."
+  default     = "AzureCloud"
+  validation {
+    condition     = contains(["AzureCloud", "AzureChinaCloud"], var.version_control)
+    error_message = "Valid values: AzureCloud or AzureChinaCloud."
+  }
+}
+
 variable "work_item_template" {
   type        = string
   description = "Valid values: Agile, Basic, CMMI, Scrum or a custom, pre-existing one. An empty string will use the parent organization default."
