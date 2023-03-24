@@ -39,16 +39,6 @@ variable "version_control" {
   }
 }
 
-variable "service_endpoint_environment" {
-  type        = string
-  description = "The Cloud Environment to use."
-  default     = "AzureCloud"
-  validation {
-    condition     = contains(["AzureCloud", "AzureChinaCloud"], var.service_endpoint_environment)
-    error_message = "Valid values: AzureCloud or AzureChinaCloud."
-  }
-}
-
 variable "work_item_template" {
   type        = string
   description = "Valid values: Agile, Basic, CMMI, Scrum or a custom, pre-existing one. An empty string will use the parent organization default."
@@ -92,6 +82,7 @@ variable "service_endpoint_args" {
     spn_tenant_id                = string
     subscription_id              = string
     subscription_name            = string
+    environment                  = optional(string, "AzureCloud")
     custom_service_endpoint_name = optional(string)
   }))
   description = "Mandatory arguments for service endpoint creation. If none of them is set, service endpoint will not be created."
