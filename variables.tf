@@ -82,6 +82,7 @@ variable "service_endpoint_args" {
     spn_tenant_id                = string
     subscription_id              = string
     subscription_name            = string
+    environment                  = optional(string, "AzureCloud")
     custom_service_endpoint_name = optional(string)
   }))
   description = "Mandatory arguments for service endpoint creation. If none of them is set, service endpoint will not be created."

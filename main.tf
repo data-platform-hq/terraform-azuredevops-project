@@ -27,6 +27,7 @@ resource "azuredevops_serviceendpoint_azurerm" "this" {
   project_id            = var.existing_project_name == null ? azuredevops_project.this[0].id : data.azuredevops_project.existing[0].id
   service_endpoint_name = each.value["custom_service_endpoint_name"] != null ? each.value["custom_service_endpoint_name"] : "${each.value["subscription_name"]}(${each.value["service_principal_id"]})"
   description           = var.description
+  environment           = each.value["environment"]
   credentials {
     serviceprincipalid  = each.value["service_principal_id"]
     serviceprincipalkey = each.value["service_principal_key"]
