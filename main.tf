@@ -54,4 +54,10 @@ resource "azuredevops_variable_group" "this" {
       is_secret    = coalesce(variable.value["is_secret"], true)
     }
   }
+
+  lifecycle {
+    ignore_changes = [
+      variable
+    ]
+  }
 }
