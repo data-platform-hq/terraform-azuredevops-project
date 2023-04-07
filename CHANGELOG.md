@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.2.0...v1.3.0) (2023-04-07)
+
+
+### Features
+
+* added variable_group lifecycle to ignore changes in variables ([9981c70](https://github.com/data-platform-hq/terraform-azuredevops-project/commit/9981c7092f7ee839117bb7a790f6de77ee0ea160))
+
 # [1.2.0](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.1.0...v1.2.0) (2023-03-24)
 
 
