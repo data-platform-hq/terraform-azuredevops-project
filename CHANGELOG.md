@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.3.0...v1.3.1) (2023-06-22)
+
+
+### Bug Fixes
+
+* var group condition ([5524c5b](https://github.com/data-platform-hq/terraform-azuredevops-project/commit/5524c5b7774907f1cd418b706eff2a8d614671b9))
+
 # [1.3.0](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.2.0...v1.3.0) (2023-04-07)
 
 
