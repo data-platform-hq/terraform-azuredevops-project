@@ -1,3 +1,11 @@
+## [1.3.2](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.3.1...v1.3.2) (2023-06-26)
+
+
+### Bug Fixes
+
+* added nonsensitive func to secrets for successful for_each ([11afc5d](https://github.com/data-platform-hq/terraform-azuredevops-project/commit/11afc5de4a90b0a04ac1489ddf085555a767d7a8))
+* switched to local variable ([a867307](https://github.com/data-platform-hq/terraform-azuredevops-project/commit/a8673072fe72e7693ae614cdc093b32c41be0961))
+
 ## [1.3.1](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.3.0...v1.3.1) (2023-06-22)
 
 
