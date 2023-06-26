@@ -51,7 +51,7 @@ resource "azuredevops_variable_group" "this" {
   allow_access = true
 
   dynamic "variable" {
-    for_each = nonsensitive(var.variables_set)
+    for_each = nonsensitive(local.mapped_vars)
     content {
       name         = variable.value["name"]
       value        = variable.value["value"]
