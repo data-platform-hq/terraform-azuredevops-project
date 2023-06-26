@@ -110,4 +110,5 @@ variable "variables_set" {
   }))
   description = "Set of variables that will be added to Variable group in ADO project. If is_secret=true, secret_value should be provided instead of value. If is_secret is not provided, it is set to true bt default"
   default     = []
+  sensitive   = true
 }
