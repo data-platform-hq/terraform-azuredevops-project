@@ -66,3 +66,29 @@ resource "azuredevops_variable_group" "this" {
     ]
   }
 }
+
+resource "azuredevops_agent_pool" "this" {
+  count = var.self_hosted_linux_agent_enable ? 1 : 0
+
+  name           = var.pool_configuration.name
+  auto_provision = var.pool_configuration.auto_provision
+  auto_update    = var.pool_configuration.auto_update
+}
+
+resource "azuredevops_agent_queue" "this" {
+  count = var.self_hosted_linux_agent_enable ? 1 : 0
+
+  project_id    = var.existing_project_name == null ? azuredevops_project.this[0].id : data.azuredevops_project.existing[0].id
+  agent_pool_id = azuredevops_agent_pool.this[0].id
+}
+
+resource "azuredevops_resource_authorization" "this" {
+  count = var.self_hosted_linux_agent_enable ? 1 : 0
+
+  project_id  = var.existing_project_name == null ? azuredevops_project.this[0].id : data.azuredevops_project.existing[0].id
+  resource_id = azuredevops_agent_queue.this[0].id
+  type        = var.pool_authorization.type
+  authorized  = var.pool_authorization.authorized
+
+  depends_on = [azuredevops_agent_queue.this]
+}
