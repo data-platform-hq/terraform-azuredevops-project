@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.3.2...v1.4.0) (2023-07-24)
+
+
+### Features
+
+* self hosted agent pool ([8af92b4](https://github.com/data-platform-hq/terraform-azuredevops-project/commit/8af92b4d3ca48df084f71fea5ff4332165a4eec7))
+
 ## [1.3.2](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.3.1...v1.3.2) (2023-06-26)
 
 
