@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.4.0...v1.4.1) (2023-07-25)
+
+
+### Bug Fixes
+
+* update vars ([f7bd03b](https://github.com/data-platform-hq/terraform-azuredevops-project/commit/f7bd03b7145077ba21727d5dd5f01290d3967e40))
+
 # [1.4.0](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.3.2...v1.4.0) (2023-07-24)
 
 
