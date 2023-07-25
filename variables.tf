@@ -115,23 +115,30 @@ variable "variables_set" {
 
 variable "self_hosted_linux_agent_enable" {
   type        = bool
-  description = "Self hosted linux agent enable"
+  description = "Boolean flag to determine whether to create resources required for Self Hosted Agent"
   default     = false
 }
 
 variable "pool_configuration" {
   type = object({
-    name           = optional(string, "self_hosted_agent_pool") # The name of the agent pool.
-    auto_provision = optional(bool, false)                      # Specifies whether a queue should be automatically provisioned for each project collection.
-    auto_update    = optional(bool, true)                       # Specifies whether or not agents within the pool should be automatically updated
+    name           = string                # The name of the agent pool.
+    auto_provision = optional(bool, false) # Specifies whether a queue should be automatically provisioned for each project collection.
+    auto_update    = optional(bool, true)  # Specifies whether or not agents within the pool should be automatically updated
   })
   description = "Object with parameters to configure self-hosted agent pool"
+  default = {
+    name = "self_hosted_agent_pool"
+  }
 }
 
 variable "pool_authorization" {
   type = object({
-    type       = optional(string, "queue")
-    authorized = optional(bool, true)
+    type       = string
+    authorized = bool
   })
   description = "Object with parameters to configure authorization of self-hosted agent pool"
+  default = {
+    type       = "queue"
+    authorized = true
+  }
 }
