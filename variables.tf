@@ -1,118 +1,42 @@
-variable "project" {
+variable "project_name" {
+  description = "The name of Azure DevOps Project where infrastructure would be provisioned"
   type        = string
-  description = "Project name. Used for resource name generation"
 }
 
-variable "env" {
-  type        = string
-  description = "Environment name. Used for resource name generation"
-}
-
-variable "location" {
-  type        = string
-  description = "Specifies the supported Azure location where the resource exists. Used for resource name generation"
-}
-
-variable "suffix" {
-  type        = string
-  description = "Route table name suffix. Used for resource name generation"
-  default     = ""
-}
-
-variable "visibility" {
-  type        = string
-  description = "Specifies the visibility of the Project."
-  default     = "private"
-  validation {
-    condition     = contains(["private", "public"], var.visibility)
-    error_message = "Valid values: private or public."
-  }
-}
-
-variable "version_control" {
-  type        = string
-  description = "Specifies the version control system."
-  default     = "Git"
-  validation {
-    condition     = contains(["Git", "Tfvc"], var.version_control)
-    error_message = "Valid values: Git or Tfvc."
-  }
-}
-
-variable "work_item_template" {
-  type        = string
-  description = "Valid values: Agile, Basic, CMMI, Scrum or a custom, pre-existing one. An empty string will use the parent organization default."
-  default     = ""
-}
-
-variable "description" {
-  type        = string
-  description = "The Description of the Project."
-  default     = "Terraform managed"
-}
-
-variable "existing_project_name" {
-  type        = string
-  description = "Name of existing project within Azure DevOps organisation. If provided new project will not be created."
-  default     = null
-}
-
-variable "create_service_endpoints" {
-  type        = bool
-  description = "Boolean flag to turn off service endpoints creation."
-  default     = true
-}
-
-variable "features" {
-  type = object({
-    boards       = optional(string)
-    repositories = optional(string)
-    pipelines    = optional(string)
-    testplans    = optional(string)
-    artifacts    = optional(string)
-  })
-  description = "Defines the status (enabled, disabled) of the project features. Valid features are boards, repositories, pipelines, testplans, artifacts. If not provided all features will be enabled."
-  default     = null
-}
-
-variable "service_endpoint_args" {
+# Service Connection with type AzureRM
+variable "service_endpoint_azurerm" {
+  description = "Configuration options for AzureRM Service Endpoint"
   type = list(object({
-    service_principal_id         = string
-    service_principal_key        = string
-    spn_tenant_id                = string
-    subscription_id              = string
-    subscription_name            = string
-    environment                  = optional(string, "AzureCloud")
-    custom_service_endpoint_name = optional(string)
+    name                  = string
+    service_principal_id  = string
+    service_principal_key = string
+    spn_tenant_id         = string
+    subscription_id       = string
+    subscription_name     = string
+    description           = optional(string)
+    environment           = optional(string, "AzureCloud")
   }))
-  description = "Mandatory arguments for service endpoint creation. If none of them is set, service endpoint will not be created."
-  default     = null
+  default = []
 }
 
-variable "custom_ado_project_name" {
-  type        = string
-  description = "ADO Project name that will be used instead of {var.project}-{var.env}-{var.location}{local.suffix} format."
-  default     = null
-}
-
-variable "custom_var_group_name" {
-  type        = string
-  description = "Variable group name that will be used instead of var-group-{var.project}-{var.env}-{var.location}{local.suffix} format."
-  default     = null
-}
-
-variable "variables_set" {
-  type = set(object({
+# Variable groups
+variable "variables_groups" {
+  description = "Configuration options for Variable group"
+  type = list(object({
     name         = string
-    value        = optional(string)
-    secret_value = optional(string)
-    is_secret    = optional(bool)
+    description  = optional(string)
+    allow_access = optional(bool, true)
+    variables = list(object({
+      name         = string
+      value        = optional(string)
+      secret_value = optional(string)
+      is_secret    = optional(bool, false)
+    }))
   }))
-  description = "Set of variables that will be added to Variable group in ADO project. If is_secret=true, secret_value should be provided instead of value. If is_secret is not provided, it is set to true bt default"
-  default     = []
-  sensitive   = true
+  default = []
 }
 
+# Self Hoster Agent Pool
 variable "self_hosted_linux_agent_enable" {
   type        = bool
   description = "Boolean flag to determine whether to create resources required for Self Hosted Agent"
@@ -141,4 +65,42 @@ variable "pool_authorization" {
     type       = "queue"
     authorized = true
   }
+}
+
+# Import external repositories
+variable "imported_repositories" {
+  description = "Configuration options for External Repositories."
+  type = list(object({
+    given_name     = string
+    repository_url = string
+    password       = string
+  }))
+  default = []
+}
+
+# Pipelines creation for repository
+variable "pipeline_configs" {
+  description = "Configuration options for Pipeline yml definition files"
+  type = list(object({
+    name         = string
+    folder       = optional(string, null)
+    environments = optional(list(string), [])
+    pipeline_source_config = object({
+      repository_name = string
+      branch_name     = optional(string, "refs/heads/main")
+      yml_path        = string
+    })
+    variables = optional(list(object({
+      name           = string
+      value          = string
+      allow_override = optional(bool, true)
+    })), [])
+  }))
+  default = []
+}
+
+variable "environments_approvers" {
+  description = "Default Azure DevOps Group that is allowed to approve deployments on Environments"
+  type        = string
+  default     = "Contributors"
 }
