@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.4.1...v1.5.0) (2023-09-18)
+
+
+### Features
+
+* pipeline definitions support ([b436561](https://github.com/data-platform-hq/terraform-azuredevops-project/commit/b4365610bfaee4b7a00359f5190d42b13c4d0b60))
+
 ## [1.4.1](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.4.0...v1.4.1) (2023-07-25)
 
 
