@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.5.0...v1.5.1) (2023-11-28)
+
+
+### Bug Fixes
+
+* service connection name output updated to nonsensitive ([2ff7468](https://github.com/data-platform-hq/terraform-azuredevops-project/commit/2ff74688b56996622490fdafc66a32cfd8a5f2c5))
+
 # [1.5.0](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.4.1...v1.5.0) (2023-09-18)
 
 
