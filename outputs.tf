@@ -9,6 +9,6 @@ output "name" {
 }
 
 output "service_connection_name" {
-  value       = [for item in keys(local.service_endpoints_azurerm_mapped) : azuredevops_serviceendpoint_azurerm.this[item].service_endpoint_name]
+  value       = [for item in keys(local.service_endpoints_azurerm_mapped) : nonsensitive(azuredevops_serviceendpoint_azurerm.this[item].service_endpoint_name)]
   description = "Service Endpoints AzureRM names list"
 }
