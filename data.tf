@@ -1,3 +1,5 @@
+data "azuredevops_client_config" "this" {}
+
 data "azuredevops_project" "this" {
   name = var.project_name
 }
@@ -16,4 +18,18 @@ data "azuredevops_git_repository" "this" {
 data "azuredevops_group" "this" {
   project_id = data.azuredevops_project.this.id
   name       = var.environments_approvers
+}
+
+# Builder Service permissions
+data "azuredevops_users" "this" {
+  count = var.builder_service_role_assigned ? 1 : 0
+
+  subject_types = ["svc"]
+}
+
+data "azuredevops_group" "build" {
+  count = var.builder_service_role_assigned ? 1 : 0
+
+  project_id = data.azuredevops_project.this.id
+  name       = "Build Administrators"
 }
