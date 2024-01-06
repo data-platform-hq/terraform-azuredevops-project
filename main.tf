@@ -9,6 +9,10 @@ locals {
   environments_pipeline_authorization = { for object in flatten([for k, v in local.pipeline_config_mapped : [for pair in setproduct([k], v.environments) : {
     pipeline_name = pair[0], env_name = pair[1]
   }]]) : "${object.pipeline_name}:${object.env_name}" => object if object.pipeline_name != null }
+
+  # Builder Service permission assignment
+  build_sp_name       = "${var.project_name} Build Service (${trimprefix(data.azuredevops_client_config.this.organization_url, "https://dev.azure.com/")})"
+  build_server_params = var.builder_service_role_assigned ? merge({ for object in data.azuredevops_users.this[0].users : object.display_name => object })[local.build_sp_name] : {}
 }
 
 # Service Endpoint AzureRM
@@ -159,4 +163,14 @@ resource "azuredevops_pipeline_authorization" "this" {
   resource_id = azuredevops_environment.this[each.value.env_name].id
   type        = "environment"
   pipeline_id = azuredevops_build_definition.this[each.value.pipeline_name].id
+}
+
+# Builder Service permission assignment
+resource "azuredevops_group_membership" "example" {
+  count = var.builder_service_role_assigned ? 1 : 0
+
+  group = data.azuredevops_group.build[0].descriptor
+  members = [
+    local.build_server_params["descriptor"]
+  ]
 }

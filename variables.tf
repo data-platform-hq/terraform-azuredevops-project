@@ -104,3 +104,10 @@ variable "environments_approvers" {
   type        = string
   default     = "Contributors"
 }
+
+# Builder Service permissions
+variable "builder_service_role_assigned" {
+  description = "Boolean flag that determines whether to assign permission to a default project's Service Builder"
+  type        = bool
+  default     = true
+}
