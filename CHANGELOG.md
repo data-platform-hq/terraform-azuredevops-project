@@ -1,3 +1,12 @@
+## [1.5.3](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.5.2...v1.5.3) (2024-02-23)
+
+
+### Bug Fixes
+
+* build service name fix ([c5d9555](https://github.com/data-platform-hq/terraform-azuredevops-project/commit/c5d9555d720bfd71981ea4c7a5affe09fc9de275))
+* removed unused data ([ea6759a](https://github.com/data-platform-hq/terraform-azuredevops-project/commit/ea6759ad63fedd71dc7b6a18840d3c566eac9e26))
+* version update ([08b6156](https://github.com/data-platform-hq/terraform-azuredevops-project/commit/08b61564a3a6ec00a50fec15e108302eeee580ce))
+
 ## [1.5.2](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.5.1...v1.5.2) (2024-01-06)
 
 
