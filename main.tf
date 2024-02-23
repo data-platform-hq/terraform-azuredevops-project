@@ -11,8 +11,7 @@ locals {
   }]]) : "${object.pipeline_name}:${object.env_name}" => object if object.pipeline_name != null }
 
   # Builder Service permission assignment
-  build_sp_name       = "${var.project_name} Build Service (${trimprefix(data.azuredevops_client_config.this.organization_url, "https://dev.azure.com/")})"
-  build_server_params = var.builder_service_role_assigned ? merge({ for object in data.azuredevops_users.this[0].users : object.display_name => object })[local.build_sp_name] : {}
+  build_server_params = var.builder_service_role_assigned ? merge({ for object in data.azuredevops_users.this[0].users : object.display_name => object })[var.builder_service_principal_name] : {}
 }
 
 # Service Endpoint AzureRM
