@@ -1,3 +1,60 @@
+# TODO - Update Documentation
+# Azure DevOps project Terraform module
+Terraform module for creation Azure DevOps project service endpoint and variable group in existing Azure DevOps organisation. After variable group creation in ADO, any changes to it are ignored by terraform.
+
+## Usage
+This module is creating ADO project, service endpoint and variable group or creates service endpoint and variable group in existing project. Below is an example that provisions project variable group and service connection.
+```hcl
+data "azurerm_client_config" "current" {}
+module "ado_project" {
+  source  = "data-platform-hq/project/azuredevops"
+  project  = "my_project"
+  env      = "dev"
+  location = "westeurope"
+  features = {
+    boards    = "disabled"
+    testplans = "disabled"
+  }
+  # var1 has value and is not a secret, var2 has value and is a secret, 
+  # var3 is empty and is not a secret, var4 is empty and is a secret
+  variables_set = [
+    {
+      name      = "var1"
+      value     = "value1"
+      is_secret = false
+    },
+    {
+      name         = "var2"
+      secret_value = "value2"
+    },
+    {
+      name = "var3"
+      is_secret = false
+    },
+    {
+      name = "var4"
+    }
+  ]
+  # var.infra-arm-client-id, var.infra-arm-tenant-id, var.infra-arm-subscription-id are empty by default. 
+  # Client configuration values will be used instead.
+  service_endpoint_args = [
+    {
+      service_principal_key        = "some_service_principal_key"
+      service_principal_id         = coalesce(var.infra_arm_client_id, data.azurerm_client_config.current.client_id)
+      spn_tenant_id                = coalesce(var.infra_arm_tenant_id, data.azurerm_client_config.current.tenant_id)
+      subscription_id              = coalesce(var.infra_arm_subscription_id, data.azurerm_client_config.current.subscription_id)
+      subscription_name            = "some_subscription_name"
+      custom_service_endpoint_name = "service-principal-dev"
+    }
+  ]
+  # project will have name "some_project_name" instead of "my_project-dev-westeurope".
+  custom_ado_project_name      = "some_project_name"
+  
+  # Variable group will have name "our_default_pipeline_var_group" instead of "var-group-my_project-dev-westeurope".
+  custom_var_group_name        = "our_default_pipeline_var_group"
+}
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -63,3 +120,6 @@ No modules.
 | <a name="output_name"></a> [name](#output\_name) | The Name of the agent pool. |
 | <a name="output_service_connection_name"></a> [service\_connection\_name](#output\_service\_connection\_name) | Service Endpoints AzureRM names list |
 <!-- END_TF_DOCS -->
+
+## License
+Apache 2 Licensed. For more information please see [LICENSE](https://github.com/data-platform-hq/terraform-azuredevops-project/blob/main/LICENSE)
