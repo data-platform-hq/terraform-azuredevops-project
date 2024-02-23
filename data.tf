@@ -1,5 +1,3 @@
-data "azuredevops_client_config" "this" {}
-
 data "azuredevops_project" "this" {
   name = var.project_name
 }
