@@ -58,16 +58,16 @@ module "ado_project" {
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-| Name | Version   |
-|------|-----------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0  |
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 | <a name="requirement_azuredevops"></a> [azuredevops](#requirement\_azuredevops) | >= 0.10.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azuredevops"></a> [azuredevops](#provider\_azuredevops) | 0.10.0  |
+| <a name="provider_azuredevops"></a> [azuredevops](#provider\_azuredevops) | >= 0.10.0 |
 
 ## Modules
 
@@ -89,7 +89,6 @@ No modules.
 | [azuredevops_serviceendpoint_azurerm.this](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/resources/serviceendpoint_azurerm) | resource |
 | [azuredevops_serviceendpoint_generic_git.this](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/resources/serviceendpoint_generic_git) | resource |
 | [azuredevops_variable_group.this](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/resources/variable_group) | resource |
-| [azuredevops_client_config.this](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/data-sources/client_config) | data source |
 | [azuredevops_git_repository.this](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/data-sources/git_repository) | data source |
 | [azuredevops_group.build](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/data-sources/group) | data source |
 | [azuredevops_group.this](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/data-sources/group) | data source |
