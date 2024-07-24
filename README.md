@@ -61,13 +61,13 @@ module "ado_project" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_azuredevops"></a> [azuredevops](#requirement\_azuredevops) | >= 0.10.0 |
+| <a name="requirement_azuredevops"></a> [azuredevops](#requirement\_azuredevops) | >= 1.1.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azuredevops"></a> [azuredevops](#provider\_azuredevops) | >= 0.10.0 |
+| <a name="provider_azuredevops"></a> [azuredevops](#provider\_azuredevops) | >= 1.1.1 |
 
 ## Modules
 
@@ -82,6 +82,8 @@ No modules.
 | [azuredevops_build_definition.this](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/resources/build_definition) | resource |
 | [azuredevops_check_approval.this](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/resources/check_approval) | resource |
 | [azuredevops_environment.this](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/resources/environment) | resource |
+| [azuredevops_feed.this](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/resources/feed) | resource |
+| [azuredevops_feed_permission.this](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/resources/feed_permission) | resource |
 | [azuredevops_git_repository.import](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/resources/git_repository) | resource |
 | [azuredevops_group_membership.example](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/resources/group_membership) | resource |
 | [azuredevops_pipeline_authorization.this](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/resources/pipeline_authorization) | resource |
@@ -91,6 +93,7 @@ No modules.
 | [azuredevops_variable_group.this](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/resources/variable_group) | resource |
 | [azuredevops_git_repository.this](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/data-sources/git_repository) | data source |
 | [azuredevops_group.build](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/data-sources/group) | data source |
+| [azuredevops_group.feed](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/data-sources/group) | data source |
 | [azuredevops_group.this](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/data-sources/group) | data source |
 | [azuredevops_project.this](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/data-sources/project) | data source |
 | [azuredevops_users.this](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/data-sources/users) | data source |
@@ -99,6 +102,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_ado_feed"></a> [ado\_feed](#input\_ado\_feed) | Set of objects with parameters to configure feed and assign permissions | <pre>set(object({<br>    feed_name                      = string<br>    permanent_feed_delete          = optional(bool, true)<br>    feed_permission_group_role     = optional(string, "contributor")<br>    feed_scope_organization_enable = optional(bool, false)<br>    feed_permission_group_name     = string<br>  }))</pre> | `[]` | no |
 | <a name="input_builder_service_principal_name"></a> [builder\_service\_principal\_name](#input\_builder\_service\_principal\_name) | Default project's Service Builder name | `string` | `null` | no |
 | <a name="input_builder_service_role_assigned"></a> [builder\_service\_role\_assigned](#input\_builder\_service\_role\_assigned) | Boolean flag that determines whether to assign permission to a default project's Service Builder | `bool` | `false` | no |
 | <a name="input_environments_approvers"></a> [environments\_approvers](#input\_environments\_approvers) | Default Azure DevOps Group that is allowed to approve deployments on Environments | `string` | `"Contributors"` | no |
