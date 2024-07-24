@@ -173,3 +173,22 @@ resource "azuredevops_group_membership" "example" {
     local.build_server_params["descriptor"]
   ]
 }
+
+resource "azuredevops_feed" "this" {
+  for_each = { for feed in var.ado_feed : feed.feed_name => feed }
+
+  name       = each.value.feed_name
+  project_id = each.value.feed_scope_organization_enable ? null : data.azuredevops_project.this.id
+  features {
+    permanent_delete = each.value.permanent_feed_delete
+  }
+}
+
+resource "azuredevops_feed_permission" "this" {
+  for_each = { for feed in var.ado_feed : feed.feed_name => feed }
+
+  feed_id             = azuredevops_feed.this[each.value.feed_name].id
+  role                = each.value.feed_permission_group_role
+  identity_descriptor = data.azuredevops_group.feed[each.value.feed_name].descriptor
+  project_id          = each.value.feed_scope_organization_enable ? null : data.azuredevops_project.this.id
+}

@@ -117,3 +117,15 @@ variable "builder_service_role_assigned" {
   type        = bool
   default     = false
 }
+
+variable "ado_feed" {
+  type = set(object({
+    feed_name                      = string
+    permanent_feed_delete          = optional(bool, true)
+    feed_permission_group_role     = optional(string, "contributor")
+    feed_scope_organization_enable = optional(bool, false)
+    feed_permission_group_name     = string
+  }))
+  description = "Set of objects with parameters to configure feed and assign permissions"
+  default     = []
+}
