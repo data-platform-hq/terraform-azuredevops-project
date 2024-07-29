@@ -31,3 +31,10 @@ data "azuredevops_group" "build" {
   project_id = data.azuredevops_project.this.id
   name       = "Build Administrators"
 }
+
+data "azuredevops_group" "feed" {
+  for_each = { for feed in var.ado_feed : feed.feed_name => feed }
+
+  project_id = each.value.feed_scope_organization_enable ? null : data.azuredevops_project.this.id
+  name       = each.value.feed_permission_group_name
+}
