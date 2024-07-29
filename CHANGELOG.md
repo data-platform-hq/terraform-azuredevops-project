@@ -1,3 +1,13 @@
+## [1.5.4](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.5.3...v1.5.4) (2024-07-29)
+
+
+### Bug Fixes
+
+* added security KICS scan action ([6c42941](https://github.com/data-platform-hq/terraform-azuredevops-project/commit/6c429419a25bd714f908300cf06e5d0ef0ca8f42))
+* corrected documentation.yml location ([3852b7e](https://github.com/data-platform-hq/terraform-azuredevops-project/commit/3852b7ed27d17e473a19b2d7232bfe1641c85906))
+* replaced pre-commit repo docs creation/update by GH Actions ([fcb36dd](https://github.com/data-platform-hq/terraform-azuredevops-project/commit/fcb36dde3595b3a26ac44e7cd2cd29f9e6ec4eef))
+* support feed creation ([7531d06](https://github.com/data-platform-hq/terraform-azuredevops-project/commit/7531d061c3df6a07ab49f819722a14aacb1b513d))
+
 ## [1.5.3](https://github.com/data-platform-hq/terraform-azuredevops-project/compare/v1.5.2...v1.5.3) (2024-02-23)
 
 
